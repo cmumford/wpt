@@ -3370,11 +3370,17 @@ policies and contribution forms [3].
                 tests.set_file_is_test();
             }
 
-            var stack;
-            if (e.error && e.error.stack) {
-                stack = e.error.stack;
-            } else {
-                stack = e.filename + ":" + e.lineno + ":" + e.colno;
+            var message, stack;
+            if (e.type === "error") {
+                message = e.message;
+                if (e.error && e.error.stack) {
+                    stack = e.error.stack;
+                } else {
+                    stack = e.filename + ":" + e.lineno + ":" + e.colno;
+                }
+            } else if (e.type === "unhandledrejection") {
+                message = "Unhandled rejection: " + e.reason.message;
+                // There's no stack for unhandled rejections.
             }
 
             if (tests.file_is_test) {
@@ -3382,21 +3388,21 @@ policies and contribution forms [3].
                 if (test.phase >= test.phases.HAS_RESULT) {
                     return;
                 }
-                test.set_status(test.FAIL, e.message, stack);
+                test.set_status(test.FAIL, message, stack);
                 test.phase = test.phases.HAS_RESULT;
                 // The following function invocation is superfluous.
                 // TODO: Remove.
                 test.done();
             } else if (!tests.allow_uncaught_exception) {
                 tests.status.status = tests.status.ERROR;
-                tests.status.message = e.message;
+                tests.status.message = message;
                 tests.status.stack = stack;
             }
             done();
         };
 
         addEventListener("error", error_handler, false);
-        addEventListener("unhandledrejection", function(e){ error_handler(e.reason); }, false);
+        addEventListener("unhandledrejection", error_handler, false);
     }
 
     test_environment.on_tests_ready();
