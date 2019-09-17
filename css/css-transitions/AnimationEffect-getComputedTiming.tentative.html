@@ -162,7 +162,7 @@ test(t => {
   div.style.marginLeft = '10px';
 
   const effect = div.getAnimations()[0].effect;
-  assert_equals(effect.getComputedTiming().easing, 'linear',
+  assert_equals(effect.getComputedTiming().easing, 'ease',
                 'Initial value of easing');
 }, 'easing of a new transition');
 
