@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CSS Grid Layout Test: grid-area sets longhands</title>
+<link rel="help" href="https://drafts.csswg.org/css-grid-1/#propdef-grid-area">
+<meta name="assert" content="grid-area supports the full grammar '<grid-line> [ / <grid-line> ]{0,3}'.">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/shorthand-testcommon.js"></script>
+</head>
+<body>
+<script>
+'use strict';
+
+function test_grid_area_value(shorthandValue, longhandValues) {
+  const shorthandName = 'grid-area';
+  const longhandNames = [
+      'grid-row-start',
+      'grid-column-start',
+      'grid-row-end',
+      'grid-column-end'
+  ];
+  test_shorthand_value(shorthandName, shorthandValue, longhandNames, longhandValues);
+}
+
+function test_grid_row_value(shorthandValue, longhandValues) {
+  const shorthandName = 'grid-row';
+  const longhandNames = [
+      'grid-row-start',
+      'grid-row-end'
+  ];
+  test_shorthand_value(shorthandName, shorthandValue, longhandNames, longhandValues);
+}
+
+function test_grid_column_value(shorthandValue, longhandValues) {
+  const shorthandName = 'grid-column';
+  const longhandNames = [
+      'grid-column-start',
+      'grid-column-end'
+  ];
+  test_shorthand_value(shorthandName, shorthandValue, longhandNames, longhandValues);
+}
+
+
+test_grid_area_value('auto', [
+    'auto',
+    'auto',
+    'auto',
+    'auto'
+]);
+
+// <custom-ident>
+test_grid_area_value('--a', [
+    '--a',
+    '--a',
+    '--a',
+    '--a'
+]);
+
+test_grid_area_value('a / b', [
+    'a',
+    'b',
+    'a',
+    'b'
+]);
+
+test_grid_area_value('a / b / c', [
+    'a',
+    'b',
+    'c',
+    'b'
+]);
+
+test_grid_area_value('a / b / c / d', [
+    'a',
+    'b',
+    'c',
+    'd'
+]);
+
+// <integer> && <custom-ident>?
+// span && [ <integer> || <custom-ident> ]
+test_grid_area_value('+90 -a- / 2 i span', [
+    '90 -a-',
+    'span 2 i',
+    'auto',
+    'auto'
+]);
+
+test_grid_area_value('1 / 2 / 3 / 4', [
+    '1',
+    '2',
+    '3',
+    '4'
+]);
+
+
+test_grid_row_value('auto', [
+    'auto',
+    'auto'
+]);
+
+test_grid_row_value('one / 2', [
+    'one',
+    '2'
+]);
+
+test_grid_row_value('1 two / four 3', [
+    '1 two',
+    '3 four'
+]);
+
+test_grid_column_value('5 span', [
+    'span 5',
+    'auto'
+]);
+
+
+test_grid_column_value('1 / two', [
+    '1',
+    'two'
+]);
+
+test_grid_column_value('span 1 two / four 3 span', [
+    'span 1 two',
+    'span 3 four'
+]);
+</script>
+</body>
+</html>
