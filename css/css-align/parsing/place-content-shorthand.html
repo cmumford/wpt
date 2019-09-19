@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CSS Box Alignment Level 3: place-content sets longhands</title>
+<link rel="help" href="https://drafts.csswg.org/css-align-3/#propdef-place-content">
+<meta name="assert" content="place-content supports the full grammar '<align-content> <justify-content>?'.">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/shorthand-testcommon.js"></script>
+</head>
+<body>
+<script>
+'use strict';
+
+function test_place_content_value(shorthandValue, longhandValues) {
+  const shorthandName = 'place-content';
+  const longhandNames = [
+      'align-content',
+      'justify-content'
+  ];
+  test_shorthand_value(shorthandName, shorthandValue, longhandNames, longhandValues);
+}
+
+test_place_content_value('normal', [
+    'normal',
+    'normal'
+]);
+
+test_place_content_value('first baseline', [
+    'baseline',
+    'start'
+]);
+
+test_place_content_value('last baseline flex-start', [
+    'last baseline',
+    'flex-start'
+]);
+
+test_place_content_value('space-around', [
+    'space-around',
+    'space-around'
+]);
+
+test_place_content_value('space-evenly unsafe end', [
+    'space-evenly',
+    'unsafe end'
+]);
+</script>
+</body>
+</html>

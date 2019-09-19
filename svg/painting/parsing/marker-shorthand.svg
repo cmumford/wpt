@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:h="http://www.w3.org/1999/xhtml"
+     width="800px" height="800px">
+  <title>SVG Painting: marker sets longhands</title>
+  <metadata>
+    <h:link rel="help" href="https://svgwg.org/svg2-draft/painting.html#MarkerProperty"/>
+    <h:meta name="assert" content="marker supports the full paint grammar 'none | marker-ref'."/>
+  </metadata>
+  <g id="target"></g>
+  <h:script src="/resources/testharness.js"/>
+  <h:script src="/resources/testharnessreport.js"/>
+  <h:script src="/css/support/shorthand-testcommon.js"/>
+  <script><![CDATA[
+
+'use strict';
+
+function test_marker_value(shorthandValue, longhandValues) {
+  const shorthandName = 'marker';
+  const longhandNames = [
+      'marker-start',
+      'marker-mid',
+      'marker-end'
+  ];
+  test_shorthand_value(shorthandName, shorthandValue, longhandNames, longhandValues);
+}
+
+test_marker_value('none', [
+    'none',
+    'none',
+    'none'
+]);
+
+test_marker_value('url("https://example.com/")', [
+    'url("https://example.com/")',
+    'url("https://example.com/")',
+    'url("https://example.com/")'
+]);
+
+  ]]></script>
+</svg>

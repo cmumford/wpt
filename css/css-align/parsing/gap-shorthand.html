@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CSS Box Alignment Level 3: gap sets longhands</title>
+<link rel="help" href="https://drafts.csswg.org/css-align-3/#propdef-gap">
+<meta name="assert" content="row-gap supports the full grammar '<row-gap> <column-gap>?'.">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/shorthand-testcommon.js"></script>
+</head>
+<body>
+<script>
+'use strict';
+
+function test_gap_value(shorthandValue, longhandValues) {
+  const shorthandName = 'gap';
+  const longhandNames = [
+      'row-gap',
+      'column-gap'
+  ];
+  test_shorthand_value(shorthandName, shorthandValue, longhandNames, longhandValues);
+}
+
+test_gap_value('normal', [
+    'normal',
+    'normal'
+]);
+
+test_gap_value('10px 20%', [
+    '10px',
+    '20%'
+]);
+
+test_gap_value('10px normal', [
+    '10px',
+    'normal'
+]);
+
+test_gap_value('normal calc(20% + 10px)', [
+    'normal',
+    'calc(20% + 10px)'
+]);
+</script>
+</body>
+</html>
