@@ -16,6 +16,8 @@
         interesting_strs.push(String.fromCharCode(i));
     }
 
+    interesting_strs = ["\uDBFF\uDFFF"];
+
     test(function() {
         var storage = window[name];
         storage.clear();
